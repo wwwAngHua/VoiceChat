@@ -9,15 +9,26 @@
     <script src="js/axios.min.js"></script>
   </head>
   <body>
+    <small
+      id="transcript"
+      style="
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: white;
+        padding: 2px;
+        background-color: black;
+      "
+      >说点什么</small
+    >
     <div class="center">
       <h3>Voice Chat&nbsp;<small>by WangHua</small></h3>
       <p>
         Hello, welcome to voice chat(<span style="background-color: yellow"
-          >bate v1.0</span
+          >beta v1.0</span
         >)
       </p>
       <div id="lottie-animation" style="width: 370px; height: auto"></div>
-      <small id="transcript">(RESULT)</small>
       <div>
         <button id="startBtn">START</button>
         &nbsp;
@@ -57,7 +68,7 @@
         recognition.onstart = () => {
           isRecognizing = true;
           animation.play();
-          transcriptElement.textContent = "Identifying...";
+          transcriptElement.textContent = "识别中...";
         };
 
         // 识别结束
@@ -71,6 +82,7 @@
             )
             .then((response) => {
               console.log(response.data);
+              transcriptElement.textContent = response.data.text;
               var audio = new Audio(response.data.mp3);
               audio.play();
               /*
