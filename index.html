@@ -93,7 +93,15 @@
               console.log(response.data);
               transcriptElement.textContent = response.data.text;
               var audio = new Audio(response.data.mp3);
-              audio.play();
+
+              audio.addEventListener("loadeddata", function () {
+                audio.play();
+                animation.play();
+              });
+
+              audio.addEventListener("ended", function () {
+                animation.stop();
+              });
               /*
               // 检查浏览器是否支持 SpeechSynthesis API
               if ("speechSynthesis" in window) {
